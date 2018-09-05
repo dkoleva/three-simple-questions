@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,22 +22,27 @@ public class ProfileServiceImpl implements ProfileService{
     }
 
     public List<UserProfileDTO> getProfiles() {
-        profileDAO.save(new UserProfile("123", "guid1", "some bio", "some image", "some email"));
-
-
-        List<UserProfile> userProfiles = profileDAO.findAll();
-
-        return userProfiles
+        return profileDAO.findAll()
                 .stream()
                 .map(this::getUserProfileDTO)
                 .collect(Collectors.toList());
    }
 
+
+
     @Override
     public UserProfileDTO saveUserProfiles(UserProfileDTO userProfileDTO) {
-        UserProfile userProfile = new UserProfile(null, "guid2", userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail());
+        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail());
         profileDAO.save(userProfile);
         return getUserProfileDTO(userProfile);
+    }
+
+    @Override
+    public UserProfileDTO getProfileByIdentifier(String identifier) throws Exception {
+        return this.profileDAO.findProfileByEmail(identifier)
+                .or(() -> this.profileDAO.findProfileByGuid(identifier))
+                .map(this::getUserProfileDTO)
+                .orElseThrow(() -> new ProfileNotFoundException(identifier + "Not found"));
     }
 
     private UserProfileDTO getUserProfileDTO(UserProfile userProfile) {

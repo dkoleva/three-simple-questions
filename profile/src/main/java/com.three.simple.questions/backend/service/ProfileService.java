@@ -9,4 +9,6 @@ public interface ProfileService {
     List<UserProfileDTO> getProfiles();
 
     UserProfileDTO saveUserProfiles(UserProfileDTO userProfileDTO);
+
+    UserProfileDTO getProfileByIdentifier(String identifier) throws Exception;
 }

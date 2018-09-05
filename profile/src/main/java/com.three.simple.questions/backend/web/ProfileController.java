@@ -1,11 +1,11 @@
 package com.three.simple.questions.backend.web;
 
+import com.three.simple.questions.backend.service.ProfileNotFoundException;
 import com.three.simple.questions.backend.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,12 +20,23 @@ public class ProfileController {
     }
 
     @GetMapping("/profiles")
-    public List<UserProfileDTO> getProfile() {
+    public List<UserProfileDTO> getProfiles() {
         return profileService.getProfiles();
     }
+
+    @GetMapping("/profiles/{identifier}")
+    public UserProfileDTO getProfileByIdentifier(@PathVariable String identifier) throws Exception {
+        return profileService.getProfileByIdentifier(identifier);
+    }
+
 
     @PutMapping("/profiles")
     public UserProfileDTO save(@RequestBody UserProfileDTO userProfileDTO) {
         return profileService.saveUserProfiles(userProfileDTO);
+    }
+
+    @ExceptionHandler(ProfileNotFoundException.class)
+    public ResponseEntity<String> getResponse() {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
