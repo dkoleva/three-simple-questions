@@ -1,0 +1,17 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+
+    implementation("org.springframework.boot:spring-boot-starter-tomcat:2.0.2.RELEASE") {
+        exclude(module: 'java-annotation')
+        exclude(module: 'spring-boot-start-logging')
+    }
+
+    implementation("org.springframework.boot:spring-boot-starter-web:${springboot}") {
+        exclude(module: 'javax.annotation-api')
+        exclude(module: 'java-annotation')
+        exclude(module: 'spring-boot-start-logging')
+    }
+}
+
+ext.moduleName = 'com.three.simple.questions.backend'
