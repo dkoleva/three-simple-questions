@@ -13,7 +13,6 @@ public class UserProfile {
     private String imageUrl;
     private String email;
 
-
     public UserProfile(String id,
                        String guid,
                        String bio,

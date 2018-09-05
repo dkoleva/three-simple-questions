@@ -7,6 +7,7 @@ module com.three.simple.questions.backend {
     requires spring.context;
     requires spring.data.mongodb;
     requires spring.data.commons;
+    requires jackson.annotations;
 
     exports com.three.simple.questions.backend.web;
 }

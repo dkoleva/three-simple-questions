@@ -1,7 +1,7 @@
 package com.three.simple.questions.backend.service;
 
 import com.three.simple.questions.backend.dao.ProfileDAO;
-import com.three.simple.questions.backend.web.UserModel;
+import com.three.simple.questions.backend.web.UserProfileDTO;
 import com.three.simple.questions.backend.dao.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class ProfileServiceImpl implements ProfileService{
         this.profileDAO = profileDAO;
     }
 
-    public List<UserModel> getProfiles() {
+    public List<UserProfileDTO> getProfiles() {
         profileDAO.save(new UserProfile("123", "guid1", "some bio", "some image", "some email"));
 
 
@@ -27,13 +27,19 @@ public class ProfileServiceImpl implements ProfileService{
 
         return userProfiles
                 .stream()
-                .map(this::getUserModel)
+                .map(this::getUserProfileDTO)
                 .collect(Collectors.toList());
-        //return new UserProfile("123", "guid1", "some bio", "some image", "some email");
+   }
+
+    @Override
+    public UserProfileDTO saveUserProfiles(UserProfileDTO userProfileDTO) {
+        UserProfile userProfile = new UserProfile(null, "guid2", userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail());
+        profileDAO.save(userProfile);
+        return getUserProfileDTO(userProfile);
     }
 
-    private UserModel getUserModel(UserProfile userProfile) {
-        return new UserModel(userProfile.getGuid(),
+    private UserProfileDTO getUserProfileDTO(UserProfile userProfile) {
+        return new UserProfileDTO(userProfile.getGuid(),
                 userProfile.getBio(),
                 userProfile.getImageUrl(),
                 userProfile.getEmail());
