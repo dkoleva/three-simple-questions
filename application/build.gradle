@@ -1,6 +1,7 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+    implementation project(":profile")
 
     implementation("org.springframework.boot:spring-boot-starter-tomcat:2.0.2.RELEASE") {
         exclude(module: 'java-annotation')

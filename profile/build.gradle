@@ -1,0 +1,12 @@
+
+dependencies {
+
+    implementation "org.springframework.data:spring-data-mongodb:${mongo}"
+    implementation("org.springframework.boot:spring-boot-starter-web:${springboot}") {
+        exclude(module: 'javax.annotation-api')
+        exclude(module: 'java-annotation')
+        exclude(module: 'spring-boot-start-logging')
+    }
+}
+
+ext.moduleName = 'com.three.simple.questions.backend.web'
