@@ -31,9 +31,21 @@ public class UserProfileWithQuestionServiceImpl implements UserProfileWithQuesti
 
     @Override
     public List<UserProfileWithQuestionsDTO> getProfiles() {
-        return profileService.getProfiles()
+        List<UserProfile> profilesForUser = profileService.getProfiles();
+
+        List<String> questionGuids = new ArrayList<>();
+
+        for (UserProfile userProfile : profilesForUser) {
+            for (QuestionAndAnswer questionAndAnswer : userProfile.getQuestionAndAnswer()) {
+                questionGuids.add(questionAndAnswer.getQuestionGuid());
+            }
+        }
+
+        List<Question> questions = questionService.getQuestionsByGuids(questionGuids);
+
+        return profilesForUser
                 .stream()
-                .map(userProfile -> getUserProfileWithQuestionsDTO(userProfile, Collections.emptyList()))
+                .map(userProfile -> getUserProfileWithQuestionsDTO(userProfile, questions))
                 .collect(Collectors.toList());
     }
 
