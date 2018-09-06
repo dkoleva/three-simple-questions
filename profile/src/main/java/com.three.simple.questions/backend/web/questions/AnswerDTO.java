@@ -12,35 +12,20 @@ import java.util.Set;
 public class AnswerDTO {
 
     private final String guid;
-    private final Set<Answer> answers;
+    private final String text;
 
     @JsonCreator
     public AnswerDTO(@JsonProperty("guid") String guid,
-                     @JsonProperty("answers") Set<Answer> answers) {
+                     @JsonProperty("text") String text) {
         this.guid = guid;
-        this.answers = answers;
+        this.text = text;
     }
 
     public String getGuid() {
         return guid;
     }
 
-    public Set<Answer> getAnswers() {
-        return answers;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AnswerDTO answerDTO = (AnswerDTO) o;
-        return Objects.equals(guid, answerDTO.guid) &&
-                Objects.equals(answers, answerDTO.answers);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(guid, answers);
+    public String getText() {
+        return text;
     }
 }

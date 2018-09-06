@@ -3,7 +3,6 @@ package com.three.simple.questions.backend.dao.questions;
 import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
-import java.util.Set;
 
 public class Question {
 
@@ -11,11 +10,13 @@ public class Question {
     private String id;
     private String guid;
     private String text;
+    private Answer answer;
 
-    public Question(String id, String guid, String text) {
+    public Question(String id, String guid, String text, Answer answer) {
         this.id = id;
         this.guid = guid;
         this.text = text;
+        this.answer = answer;
     }
     //private Set<Answer> answers;
 
@@ -54,7 +55,16 @@ public class Question {
     public void setText(String text) {
         this.text = text;
     }
-/*
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    /*
     public void setAnswers(Set<Answer> answers) {
         this.answers = answers;
     }*/

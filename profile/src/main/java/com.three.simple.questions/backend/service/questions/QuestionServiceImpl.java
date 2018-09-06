@@ -2,6 +2,7 @@ package com.three.simple.questions.backend.service.questions;
 
 import com.three.simple.questions.backend.dao.questions.Question;
 import com.three.simple.questions.backend.dao.questions.QuestionDAO;
+import com.three.simple.questions.backend.web.questions.AnswerDTO;
 import com.three.simple.questions.backend.web.questions.QuestionAndAnswerDTO;
 import com.three.simple.questions.backend.web.questions.QuestionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class QuestionServiceImpl implements QuestionService {
 
     private QuestionDTO getQuestionDTO(Question question) {
         return new QuestionDTO(question.getGuid(),
-                question.getQuestion());
+                question.getQuestion(),
+                new AnswerDTO(question.getAnswer().getGuid(),
+                        question.getAnswer().getAnswer()));
     }
 }

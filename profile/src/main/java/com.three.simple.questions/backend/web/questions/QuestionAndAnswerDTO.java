@@ -14,7 +14,7 @@ public class QuestionAndAnswerDTO {
 
     @JsonCreator
     public QuestionAndAnswerDTO(@JsonProperty("userGuid") String userGuid,
-                                @JsonProperty("questionDTO") QuestionDTO questionDTO) {
+                                @JsonProperty("question") QuestionDTO questionDTO) {
         this.userGuid = userGuid;
         this.questionDTO = questionDTO;
     }
