@@ -2,10 +2,13 @@ package com.three.simple.questions.backend.service.questions;
 
 import com.three.simple.questions.backend.dao.questions.Answer;
 import com.three.simple.questions.backend.dao.questions.Question;
+import com.three.simple.questions.backend.web.questions.AnswerDTO;
 import com.three.simple.questions.backend.web.questions.QuestionAndAnswerDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class QuestionFactory {
@@ -14,10 +17,17 @@ public class QuestionFactory {
         return new Question(null,
                 UUID.randomUUID().toString(),
                 questionAndAnswerDTO.getQuestionDTO().getText(),
-                getAnswer(questionAndAnswerDTO));
+                getAnswers(questionAndAnswerDTO.getQuestionDTO().getAnswerDTO()));
     }
 
-    private Answer getAnswer(QuestionAndAnswerDTO questionAndAnswerDTO) {
-        return new Answer(UUID.randomUUID().toString(), questionAndAnswerDTO.getQuestionDTO().getAnswerDTO().getText());
+    private Set<Answer> getAnswers(Set<AnswerDTO> answers) {
+        return answers.stream()
+                .map(this::getAnswer)
+                .collect(Collectors.toSet());
+    }
+
+    private Answer getAnswer(AnswerDTO answerDTO) {
+        return new Answer(UUID.randomUUID().toString(),
+                answerDTO.getText());
     }
 }

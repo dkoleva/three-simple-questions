@@ -3,6 +3,7 @@ package com.three.simple.questions.backend.dao.questions;
 import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Question {
 
@@ -10,22 +11,17 @@ public class Question {
     private String id;
     private String guid;
     private String text;
-    private Answer answer;
+    private Set<Answer> answers;
 
-    public Question(String id, String guid, String text, Answer answer) {
-        this.id = id;
-        this.guid = guid;
-        this.text = text;
-        this.answer = answer;
-    }
-    //private Set<Answer> answers;
-
-/*    public Question(String id, String guid, String text, Set<Answer> answers) {
+    public Question(String id,
+                    String guid,
+                    String text,
+                    Set<Answer> answers) {
         this.id = id;
         this.guid = guid;
         this.text = text;
         this.answers = answers;
-    }*/
+    }
 
     public String getId() {
         return id;
@@ -40,9 +36,9 @@ public class Question {
         return text;
     }
 
-/*    public Set<Answer> getAnswer() {
+    public Set<Answer> getAnswers() {
         return answers;
-    }*/
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -56,18 +52,9 @@ public class Question {
         this.text = text;
     }
 
-    public Answer getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
-    }
-
-    /*
     public void setAnswers(Set<Answer> answers) {
         this.answers = answers;
-    }*/
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -76,12 +63,12 @@ public class Question {
         Question question = (Question) o;
         return Objects.equals(id, question.id) &&
                 Objects.equals(guid, question.guid) &&
-                Objects.equals(text, question.text);
+                Objects.equals(text, question.text) &&
+                Objects.equals(answers, question.answers);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, guid, text);
+        return Objects.hash(id, guid, text, answers);
     }
 }

@@ -8,6 +8,8 @@ import com.three.simple.questions.backend.web.questions.QuestionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
@@ -31,7 +33,12 @@ public class QuestionServiceImpl implements QuestionService {
     private QuestionDTO getQuestionDTO(Question question) {
         return new QuestionDTO(question.getGuid(),
                 question.getQuestion(),
-                new AnswerDTO(question.getAnswer().getGuid(),
-                        question.getAnswer().getAnswer()));
+                question.getAnswers()
+                        .stream()
+                        .map(answer -> new AnswerDTO(answer.getGuid(),
+                            answer.getAnswer(),
+                                null))
+                        .collect(Collectors.toSet())
+                );
     }
 }

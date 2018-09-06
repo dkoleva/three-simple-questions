@@ -3,22 +3,21 @@ package com.three.simple.questions.backend.web.questions;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.three.simple.questions.backend.dao.questions.Answer;
-
-import java.util.Objects;
-import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AnswerDTO {
 
     private final String guid;
     private final String text;
+    private final Boolean correct;
 
     @JsonCreator
     public AnswerDTO(@JsonProperty("guid") String guid,
-                     @JsonProperty("text") String text) {
+                     @JsonProperty("text") String text,
+                     @JsonProperty("correct") Boolean correct) {
         this.guid = guid;
         this.text = text;
+        this.correct = correct;
     }
 
     public String getGuid() {
@@ -27,5 +26,9 @@ public class AnswerDTO {
 
     public String getText() {
         return text;
+    }
+
+    public Boolean isCorrect() {
+        return correct;
     }
 }
