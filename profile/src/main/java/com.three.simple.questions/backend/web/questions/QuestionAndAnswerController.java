@@ -1,50 +1,49 @@
 package com.three.simple.questions.backend.web.questions;
 
-import com.three.simple.questions.backend.service.questions.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class QuestionController {
+public class QuestionAndAnswerController {
 
-    private final QuestionService questionService;
+    private final QuestionAndAnswerService questionAndAnswerService;
 
     @Autowired
-    public QuestionController(QuestionService questionService) {
-        this.questionService = questionService;
+    public QuestionAndAnswerController(QuestionAndAnswerService questionService) {
+        this.questionAndAnswerService = questionService;
     }
 
     @PutMapping("/questions")
     public QuestionAndAnswerDTO addQuestion(@RequestBody QuestionAndAnswerDTO questionAndAnswerDTO) {
-        return questionService.addQuestion(questionAndAnswerDTO);
+        return questionAndAnswerService.addQuestionsAndAnswers(questionAndAnswerDTO);
     }
 
 
 /*    @GetMapping("/questions")
     public List<QuestionDTO> getQuestions() {
-        return questionService.getQuestions();
+        return questionAndAnswerService.getQuestions();
     }
 
     public QuestionDTO addQuestion(QuestionDTO questionDTO) {
-        return questionService.addQuestion(questionDTO);
+        return questionAndAnswerService.addQuestion(questionDTO);
     }
 
     public QuestionDTO deleteQuestion(QuestionDTO questionDTO) {
-        return questionService.deleteQuestion(questionDTO);
+        return questionAndAnswerService.deleteQuestion(questionDTO);
     }
 
     @GetMapping("/answers")
     public List<AnswerDTO> getAnswers() {
-        return questionService.getAnswers();
+        return questionAndAnswerService.getAnswers();
     }
 
     public AnswerDTO addAnswer(AnswerDTO answerDTO) {
-        return questionService.addAnswer(answerDTO);
+        return questionAndAnswerService.addAnswer(answerDTO);
     }
 
     public AnswerDTO deleteAnswer(AnswerDTO answerDTO) {
-        return questionService.deleteAnswer(answerDTO);
+        return questionAndAnswerService.deleteAnswer(answerDTO);
     }*/
 }

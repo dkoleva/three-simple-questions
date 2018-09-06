@@ -29,9 +29,14 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public UserProfileDTO saveUserProfiles(UserProfileDTO userProfileDTO) {
-        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail());
+        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail(), null);
         profileDAO.save(userProfile);
         return getUserProfileDTO(userProfile);
+    }
+
+    @Override
+    public UserProfile saveUserProfile(UserProfile userProfile) {
+        return profileDAO.save(userProfile);
     }
 
     @Override
@@ -40,6 +45,12 @@ public class ProfileServiceImpl implements ProfileService{
                 .or(() -> this.profileDAO.findProfileByGuid(identifier))
                 .map(this::getUserProfileDTO)
                 .orElseThrow(() -> new ProfileNotFoundException(identifier + "Not found"));
+    }
+
+    @Override
+    public UserProfile getProfileByGuid(String guid) {
+        return profileDAO.findProfileByGuid(guid)
+                .orElseThrow(() -> new ProfileNotFoundException(guid + "Not found"));
     }
 
     private UserProfileDTO getUserProfileDTO(UserProfile userProfile) {

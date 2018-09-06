@@ -12,17 +12,20 @@ public class UserProfile {
     private String bio;
     private String imageUrl;
     private String email;
+    private QuestionAndAnswer questionAndAnswer;
 
     public UserProfile(String id,
                        String guid,
                        String bio,
                        String imageUrl,
-                       String email) {
+                       String email,
+                       QuestionAndAnswer questionAndAnswer) {
         this.id = id;
         this.guid = guid;
         this.bio = bio;
         this.imageUrl = imageUrl;
         this.email = email;
+        this.questionAndAnswer = questionAndAnswer;
     }
 
     public String getEmail() {
@@ -45,6 +48,14 @@ public class UserProfile {
         return guid;
     }
 
+    public QuestionAndAnswer getQuestionAndAnswer() {
+        return questionAndAnswer;
+    }
+
+    public void setQuestionAndAnswer(QuestionAndAnswer questionAndAnswer) {
+        this.questionAndAnswer = questionAndAnswer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,12 +65,12 @@ public class UserProfile {
                 Objects.equals(guid, that.guid) &&
                 Objects.equals(bio, that.bio) &&
                 Objects.equals(imageUrl, that.imageUrl) &&
-                Objects.equals(email, that.email);
+                Objects.equals(email, that.email) &&
+                Objects.equals(questionAndAnswer, that.questionAndAnswer);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, guid, bio, imageUrl, email);
+        return Objects.hash(id, guid, bio, imageUrl, email, questionAndAnswer);
     }
 }
