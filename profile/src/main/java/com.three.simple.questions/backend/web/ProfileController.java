@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProfileController {
@@ -31,6 +32,12 @@ public class ProfileController {
     @GetMapping("/profiles/{identifier}")
     public UserProfileDTO getProfileByIdentifier(@PathVariable String identifier) throws Exception {
         return profileService.getProfileByIdentifier(identifier);
+    }
+
+    @PutMapping("/profiles/{userGuid}")
+    public String saveMatchedUserGuids(@PathVariable String userGuid, @RequestBody String matchedUserGuid) {
+        profileService.saveMatchedUserProfile(userGuid, matchedUserGuid);
+        return matchedUserGuid;
     }
 
     @PutMapping("/profiles")

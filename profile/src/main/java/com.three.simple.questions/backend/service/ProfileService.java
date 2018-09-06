@@ -18,4 +18,6 @@ public interface ProfileService {
     UserProfile getProfileByGuid(String guid);
 
     List<UserProfileDTO> getProfilesForUser();
+
+    void saveMatchedUserProfile(String userGuid, String matchedUserGuid);
 }

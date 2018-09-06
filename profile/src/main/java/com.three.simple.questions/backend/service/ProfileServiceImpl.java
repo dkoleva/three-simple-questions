@@ -6,9 +6,7 @@ import com.three.simple.questions.backend.dao.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +28,7 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public UserProfileDTO saveUserProfiles(UserProfileDTO userProfileDTO) {
-        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail(), Collections.emptyList());
+        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail(), Collections.emptyList(), Collections.emptyList());
         profileDAO.save(userProfile);
         return getUserProfileDTO(userProfile);
     }
@@ -57,6 +55,23 @@ public class ProfileServiceImpl implements ProfileService{
     @Override
     public List<UserProfileDTO> getProfilesForUser() {
         return null;
+    }
+
+    @Override
+    public void saveMatchedUserProfile(String userGuid, String matchedUserGuid) {
+        Optional<UserProfile> profileByGuid = profileDAO.findProfileByGuid(userGuid);
+        if (profileByGuid.isPresent()) {
+            UserProfile userProfile = profileByGuid.get();
+            List<String> matchedUserGuids = userProfile.getMatchedUserGuids();
+            if (matchedUserGuids == null) {
+                matchedUserGuids = new ArrayList<>();
+            }
+            matchedUserGuids.add(matchedUserGuid);
+            userProfile.setMatchedUserGuid(matchedUserGuids);
+            profileDAO.save(userProfile);
+        } else {
+            throw new ProfileNotFoundException(userGuid + " not found");
+        }
     }
 
     private UserProfileDTO getUserProfileDTO(UserProfile userProfile) {
