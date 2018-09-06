@@ -20,7 +20,7 @@ public class ProfileController {
     }
 
     @GetMapping("/profiles")
-    public List<UserProfileDTO> getProfiles(@RequestParam String forUser) {
+    public List<UserProfileDTO> getProfiles(@RequestParam(required = false) String forUser) {
         if (forUser != null) {
             return profileService.getProfilesForUser();
         } else {
