@@ -2,6 +2,7 @@ package com.three.simple.questions.backend.dao;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Objects;
 
 public class UserProfile {
@@ -12,14 +13,14 @@ public class UserProfile {
     private String bio;
     private String imageUrl;
     private String email;
-    private QuestionAndAnswer questionAndAnswer;
+    private List<QuestionAndAnswer> questionAndAnswer;
 
     public UserProfile(String id,
                        String guid,
                        String bio,
                        String imageUrl,
                        String email,
-                       QuestionAndAnswer questionAndAnswer) {
+                       List<QuestionAndAnswer> questionAndAnswer) {
         this.id = id;
         this.guid = guid;
         this.bio = bio;
@@ -48,11 +49,11 @@ public class UserProfile {
         return guid;
     }
 
-    public QuestionAndAnswer getQuestionAndAnswer() {
+    public List<QuestionAndAnswer> getQuestionAndAnswer() {
         return questionAndAnswer;
     }
 
-    public void setQuestionAndAnswer(QuestionAndAnswer questionAndAnswer) {
+    public void setQuestionAndAnswer(List<QuestionAndAnswer> questionAndAnswer) {
         this.questionAndAnswer = questionAndAnswer;
     }
 

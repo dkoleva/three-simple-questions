@@ -6,6 +6,7 @@ import com.three.simple.questions.backend.dao.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public UserProfileDTO saveUserProfiles(UserProfileDTO userProfileDTO) {
-        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail(), null);
+        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail(), Collections.emptyList());
         profileDAO.save(userProfile);
         return getUserProfileDTO(userProfile);
     }
@@ -51,6 +52,11 @@ public class ProfileServiceImpl implements ProfileService{
     public UserProfile getProfileByGuid(String guid) {
         return profileDAO.findProfileByGuid(guid)
                 .orElseThrow(() -> new ProfileNotFoundException(guid + "Not found"));
+    }
+
+    @Override
+    public List<UserProfileDTO> getProfilesForUser() {
+        return null;
     }
 
     private UserProfileDTO getUserProfileDTO(UserProfile userProfile) {

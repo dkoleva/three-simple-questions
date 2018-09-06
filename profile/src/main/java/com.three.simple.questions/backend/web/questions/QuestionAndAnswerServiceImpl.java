@@ -7,6 +7,8 @@ import com.three.simple.questions.backend.service.questions.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionAndAnswerServiceImpl implements QuestionAndAnswerService {
 
@@ -24,7 +26,9 @@ public class QuestionAndAnswerServiceImpl implements QuestionAndAnswerService {
     public QuestionAndAnswerDTO addQuestionsAndAnswers(QuestionAndAnswerDTO questionAndAnswerDTO) {
         QuestionAndAnswerDTO updatedQuestionAndAnswerDTO = questionService.addQuestion(questionAndAnswerDTO);
         UserProfile profile = profileService.getProfileByGuid(updatedQuestionAndAnswerDTO.getUserGuid());
-        profile.setQuestionAndAnswer(getQuestionAndAnswer(updatedQuestionAndAnswerDTO));
+        List<QuestionAndAnswer> questionAndAnswer = profile.getQuestionAndAnswer();
+        questionAndAnswer.add(getQuestionAndAnswer(updatedQuestionAndAnswerDTO));
+        profile.setQuestionAndAnswer(questionAndAnswer);
         profileService.saveUserProfile(profile);
         return updatedQuestionAndAnswerDTO;
     }
