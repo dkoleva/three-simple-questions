@@ -10,4 +10,5 @@ module com.three.simple.questions.backend {
     requires jackson.annotations;
 
     exports com.three.simple.questions.backend.web;
+    exports com.three.simple.questions.backend.web.questions;
 }
