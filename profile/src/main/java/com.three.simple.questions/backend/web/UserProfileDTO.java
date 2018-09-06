@@ -37,7 +37,6 @@ public class UserProfileDTO {
         return imageUrl;
     }
 
-
     public String getEmail() {
         return email;
     }

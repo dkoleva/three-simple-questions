@@ -29,7 +29,6 @@ public class ProfileController {
         return profileService.getProfileByIdentifier(identifier);
     }
 
-
     @PutMapping("/profiles")
     public UserProfileDTO save(@RequestBody UserProfileDTO userProfileDTO) {
         return profileService.saveUserProfiles(userProfileDTO);

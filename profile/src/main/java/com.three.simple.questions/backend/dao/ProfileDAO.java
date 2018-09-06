@@ -9,7 +9,4 @@ public interface ProfileDAO extends MongoRepository<UserProfile, String> {
     Optional<UserProfile> findProfileByEmail(String email);
 
     Optional<UserProfile> findProfileByGuid(String guid);
-
-
-
 }
