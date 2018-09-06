@@ -46,6 +46,11 @@ public class QuestionServiceImpl implements QuestionService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Question> getQuestionsByGuids(List<String> questionGuids) {
+        return questionDAO.findByGuidIn(questionGuids);
+    }
+
     private QuestionDTO getQuestionDTO(Question question) {
         return new QuestionDTO(question.getGuid(),
                 question.getQuestion(),

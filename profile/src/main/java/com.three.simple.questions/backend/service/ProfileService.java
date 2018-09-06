@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProfileService {
 
-    List<UserProfileDTO> getProfiles();
+    List<UserProfile> getProfiles();
 
     UserProfileDTO saveUserProfiles(UserProfileDTO userProfileDTO);
 
@@ -17,5 +17,5 @@ public interface ProfileService {
 
     UserProfile getProfileByGuid(String guid);
 
-    List<UserProfileDTO> getProfilesForUser();
+    List<UserProfile> getProfilesForUser(String guid);
 }

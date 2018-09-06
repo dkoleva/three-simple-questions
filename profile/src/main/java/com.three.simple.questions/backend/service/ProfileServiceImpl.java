@@ -1,15 +1,14 @@
 package com.three.simple.questions.backend.service;
 
 import com.three.simple.questions.backend.dao.ProfileDAO;
-import com.three.simple.questions.backend.web.UserProfileDTO;
 import com.three.simple.questions.backend.dao.UserProfile;
+import com.three.simple.questions.backend.web.UserProfileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfileServiceImpl implements ProfileService{
@@ -21,11 +20,8 @@ public class ProfileServiceImpl implements ProfileService{
         this.profileDAO = profileDAO;
     }
 
-    public List<UserProfileDTO> getProfiles() {
-        return profileDAO.findAll()
-                .stream()
-                .map(this::getUserProfileDTO)
-                .collect(Collectors.toList());
+    public List<UserProfile> getProfiles() {
+        return profileDAO.findAll();
    }
 
     @Override
@@ -55,8 +51,9 @@ public class ProfileServiceImpl implements ProfileService{
     }
 
     @Override
-    public List<UserProfileDTO> getProfilesForUser() {
-        return null;
+    public List<UserProfile> getProfilesForUser(String guid) {
+        return profileDAO.findProfileByGuidNotIn(List.of(guid));
+
     }
 
     private UserProfileDTO getUserProfileDTO(UserProfile userProfile) {
