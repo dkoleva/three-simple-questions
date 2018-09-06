@@ -9,8 +9,8 @@ import java.util.List;
 public interface QuestionService {
     QuestionAndAnswerDTO addQuestion(QuestionAndAnswerDTO questionAndAnswerDTO);
 
-/*    List<QuestionDTO> getQuestions();
-
+    List<QuestionDTO> getQuestions();
+/*
     QuestionDTO addQuestion(QuestionDTO questionDTO);
 
     QuestionDTO deleteQuestion(QuestionDTO questionDTO);

@@ -33,6 +33,11 @@ public class QuestionAndAnswerServiceImpl implements QuestionAndAnswerService {
         return updatedQuestionAndAnswerDTO;
     }
 
+    @Override
+    public List<QuestionDTO> getQuestions( ) {
+        return questionService.getQuestions();
+    }
+
     private QuestionAndAnswer getQuestionAndAnswer(QuestionAndAnswerDTO updatedQuestionAndAnswerDTO) {
         return new QuestionAndAnswer(updatedQuestionAndAnswerDTO.getQuestionDTO().getGuid(),
                 getAnswerDTOStream(updatedQuestionAndAnswerDTO));
