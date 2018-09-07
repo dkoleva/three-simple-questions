@@ -10,15 +10,16 @@ public class UserProfile {
     @Id
     private String id;
     private String guid;
+    private String name;
     private String bio;
     private String imageUrl;
     private String email;
     private List<QuestionAndAnswer> questionAndAnswer;
-
     private List<String> matchedUserGuid;
 
     public UserProfile(String id,
                        String guid,
+                       String name,
                        String bio,
                        String imageUrl,
                        String email,
@@ -26,6 +27,7 @@ public class UserProfile {
                        List<String> matchedUserGuid) {
         this.id = id;
         this.guid = guid;
+        this.name = name;
         this.bio = bio;
         this.imageUrl = imageUrl;
         this.email = email;
@@ -69,6 +71,14 @@ public class UserProfile {
         this.matchedUserGuid = matchedUserGuid;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,6 +86,7 @@ public class UserProfile {
         UserProfile that = (UserProfile) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(guid, that.guid) &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(bio, that.bio) &&
                 Objects.equals(imageUrl, that.imageUrl) &&
                 Objects.equals(email, that.email) &&
@@ -86,6 +97,6 @@ public class UserProfile {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, guid, bio, imageUrl, email, questionAndAnswer, matchedUserGuid);
+        return Objects.hash(id, guid, name, bio, imageUrl, email, questionAndAnswer, matchedUserGuid);
     }
 }

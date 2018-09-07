@@ -72,7 +72,7 @@ public class UserProfileWithQuestionServiceImpl implements UserProfileWithQuesti
     private UserProfileWithQuestionsDTO getUserProfileWithQuestionsDTO(UserProfile userProfile, List<Question> questions) {
         return new UserProfileWithQuestionsDTO(
                 userProfile.getGuid(),
-                userProfile.getBio(),
+                userProfile.getName(), userProfile.getBio(),
                 userProfile.getImageUrl(),
                 userProfile.getEmail(),
                 questions.isEmpty() ? Collections.emptyList() : getQuestionDTOS(userProfile, questions));

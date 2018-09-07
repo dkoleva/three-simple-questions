@@ -10,19 +10,26 @@ import java.util.Objects;
 public class UserProfileDTO {
 
     private final String guid;
+    private final String name;
     private final String bio;
     private final String imageUrl;
     private final String email;
 
     @JsonCreator
     public UserProfileDTO(@JsonProperty("guid") String guid,
+                          @JsonProperty("name") String name,
                           @JsonProperty("bio") String bio,
                           @JsonProperty("imageUrl") String imageUrl,
                           @JsonProperty("email") String email) {
         this.guid = guid;
+        this.name = name;
         this.bio = bio;
         this.imageUrl = imageUrl;
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getGuid() {
@@ -45,15 +52,17 @@ public class UserProfileDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserProfileDTO userProfileDTO = (UserProfileDTO) o;
-        return Objects.equals(guid, userProfileDTO.guid) &&
-                Objects.equals(bio, userProfileDTO.bio) &&
-                Objects.equals(imageUrl, userProfileDTO.imageUrl) &&
-                Objects.equals(email, userProfileDTO.email);
+        UserProfileDTO that = (UserProfileDTO) o;
+        return Objects.equals(guid, that.guid) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(bio, that.bio) &&
+                Objects.equals(imageUrl, that.imageUrl) &&
+                Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guid, bio, imageUrl, email);
+
+        return Objects.hash(guid, name, bio, imageUrl, email);
     }
 }

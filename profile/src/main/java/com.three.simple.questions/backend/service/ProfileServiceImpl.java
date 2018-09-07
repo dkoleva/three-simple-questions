@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +27,7 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public UserProfileDTO saveUserProfiles(UserProfileDTO userProfileDTO) {
-        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail(), Collections.emptyList(), Collections.emptyList());
+        UserProfile userProfile = new UserProfile(null, UUID.randomUUID().toString(), userProfileDTO.getName(), userProfileDTO.getBio(), userProfileDTO.getImageUrl(), userProfileDTO.getEmail(), Collections.emptyList(), Collections.emptyList());
         profileDAO.save(userProfile);
         return getUserProfileDTO(userProfile);
     }
@@ -77,7 +76,7 @@ public class ProfileServiceImpl implements ProfileService{
 
     private UserProfileDTO getUserProfileDTO(UserProfile userProfile) {
         return new UserProfileDTO(userProfile.getGuid(),
-                userProfile.getBio(),
+                userProfile.getName(), userProfile.getBio(),
                 userProfile.getImageUrl(),
                 userProfile.getEmail());
     }
